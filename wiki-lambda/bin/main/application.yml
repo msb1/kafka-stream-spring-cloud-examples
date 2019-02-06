@@ -1,0 +1,28 @@
+spring.cloud.stream.bindings:
+  input:
+    destination: wiki-feeds
+    consumer:
+      useNativeDecoding: true
+  output:
+    destination: wiki-stats
+    producer:
+      useNativeEncoding: true
+
+spring.cloud.stream.kafka.streams.binder:  
+  brokers: 192.168.5.4
+  configuration:
+    commit.interval.ms: 1000
+    schema.registry.url: http://192.168.5.4:8081
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+spring.cloud.stream.kafka.streams.bindings:
+  input:
+    consumer:
+      applicationId: wiki-feed-avro
+      keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+  output:
+    producer:
+      keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      valueSerde:  org.apache.kafka.common.serialization.Serdes$LongSerde
+        

@@ -1,0 +1,18 @@
+spring.cloud.stream.bindings:
+  output:
+    contentType: application/json
+    destination: detections
+  input:
+    contentType: application/json
+    destination: nameStream
+spring.cloud.stream.kafka.streams:
+  binder:
+    brokers: 192.168.5.4
+    configuration:
+      commit.interval.ms: 500
+      default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+  bindings.input.consumer:
+    applicationId: anomaly-detect
+    
+    

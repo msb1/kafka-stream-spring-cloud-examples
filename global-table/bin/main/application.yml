@@ -1,0 +1,39 @@
+spring.cloud.stream.bindings:
+  input:
+    destination: orders
+    consumer:
+      useNativeDecoding: true
+  customers:
+    destination: customers
+    consumer:
+      useNativeDecoding: true
+  products:
+    destination: products
+    consumer:
+      useNativeDecoding: true
+  output:
+    destination: enriched-orders
+    producer:
+      useNativeEncoding: true
+
+spring.cloud.stream.kafka.streams.binder.configuration:
+  commit.interval.ms: 1000
+  default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+  default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+spring.cloud.stream.kafka.streams.bindings:
+  input:
+    consumer:
+      applicationId: global-tables
+      valueSerde: com.barnwaldo.globaltable.serde.OrderSerde 
+  customers:
+    consumer:
+      applicationId: global-tables
+      valueSerde: com.barnwaldo.globaltable.serde.CustomerSerde 
+  products:
+    consumer:
+      applicationId: global-tables
+      valueSerde: com.barnwaldo.globaltable.serde.ProductSerde 
+  output:
+    producer:
+      valueSerde: com.barnwaldo.globaltable.serde.EnrichedOrderSerde 
+

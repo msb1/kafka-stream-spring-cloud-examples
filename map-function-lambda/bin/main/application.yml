@@ -1,0 +1,40 @@
+spring.cloud.stream.bindings:
+  input:
+    destination: page-views
+    consumer:
+      useNativeDecoding: true
+  users:
+    destination: user-profiles
+    consumer:
+      useNativeDecoding: true
+  output:
+    destination: mapped
+    producer:
+      useNativeEncoding: true
+
+spring.cloud.stream.kafka.streams.binder:
+  brokers: 192.168.5.4
+  configuration:
+    commit.interval.ms: 1000
+    schema.registry.url: http://192.168.5.4:8081
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+spring.cloud.stream.kafka.streams.bindings:
+  input:
+    consumer:
+      applicationId: mapped-lambda
+      # The following 2 props are not needed as they are same as the global ones.
+      # Adding it here in order to illustrate the usage of it if they are indeed different from the global Serde's
+      keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+  users:
+    consumer:
+      applicationId: mapped-lambda
+      # The following 2 props are not needed as they are same as the global ones.
+      # Adding it here in order to illustrate the usage of it if they are indeed different from the global Serde's
+      keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+  output:
+    producer:
+      valueSerde: org.apache.kafka.common.serialization.Serdes$LongSerde
+        

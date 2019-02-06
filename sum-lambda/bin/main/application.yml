@@ -1,0 +1,28 @@
+spring.cloud.stream.bindings:
+  input:
+    destination: numbers
+    consumer:
+      useNativeDecoding: true
+  output:
+    destination: sum-numbers
+    producer:
+      useNativeEncoding: true
+
+spring.cloud.stream.kafka.streams.binder:
+  brokers: localhost
+  configuration:
+    commit.interval.ms: 1000
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$IntegerSerde
+    default.value.serde: org.apache.kafka.common.serialization.Serdes$IntegerSerde
+spring.cloud.stream.kafka.streams.bindings:
+  input:
+    consumer:
+      applicationId: session-windows
+      # The following 2 props are not needed as they are same as the global ones.
+      # Adding it here in order to illustrate the usage of it if they are indeed different from the global Serde's
+      keySerde: org.apache.kafka.common.serialization.Serdes$IntegerSerde
+      valueSerde: org.apache.kafka.common.serialization.Serdes$IntegerSerde
+  output:
+    producer:
+      valueSerde: org.apache.kafka.common.serialization.Serdes$IntegerSerde
+        

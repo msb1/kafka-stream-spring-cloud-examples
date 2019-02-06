@@ -1,0 +1,8 @@
+{"namespace": "com.barnwaldo",
+ "type": "record",
+ "name": "UserProfile",
+ "fields": [
+     {"name": "experience", "type": ["string", "null"]},
+     {"name": "region", "type": "string"}
+ ]
+}
